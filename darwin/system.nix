@@ -147,6 +147,9 @@
   # Configure Finder appearance and behavior
   
   system.defaults.finder = {
+    # Put folders first sorting by name
+    _FXSortFoldersFirst = true;
+
     # Show all filename extensions
     AppleShowAllExtensions = true;
     
@@ -168,7 +171,7 @@
     FXEnableExtensionChangeWarning = false;
     
     # Show hidden files
-    AppleShowAllFiles = false;
+    AppleShowAllFiles = true;
     
     # Show the ~/Library folder
     # Note: This is handled separately via chflags command
@@ -271,17 +274,5 @@
     
     # Disable auto-correct
     NSAutomaticSpellingCorrectionEnabled = false;
-  };
-
-  # ==========================================================================
-  # FINDER
-  # ==========================================================================
-
-  system.defaults.finder = {
-    AppleShowAllExtensions = true;
-    AppleShowAllFiles = true;
-    ShowPathbar = true;
-    ShowStatusBar = true;
-    _FXSortFoldersFirst = true;
   };
 }
