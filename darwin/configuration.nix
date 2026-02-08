@@ -21,14 +21,18 @@
   # NIX SETTINGS
   # ==========================================================================
   # Configure the Nix package manager itself
-  
+
+  nix.enable = true;
+
+  nix.settings.ssl-cert-file = "/etc/ssl/cert.pem";
+
   nix.settings = {
     # Enable experimental features (required for flakes)
     experimental-features = "nix-command flakes";
-    
-    # Optimize storage by hard-linking identical files
-    auto-optimise-store = true;
   };
+
+  # Optimize storage by hard-linking identical files
+  nix.optimise.automatic = true;
 
   # ==========================================================================
   # NIX-DARWIN SETTINGS
@@ -36,7 +40,7 @@
   
   # Enable Touch ID for sudo authentication
   # This allows you to use your fingerprint instead of typing password for sudo
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # ==========================================================================
   # SYSTEM PACKAGES
@@ -168,6 +172,8 @@
   # Basic system settings (more detailed settings in darwin/system.nix)
   
   system = {
+    # Tell nix-darwin which user to apply user-scoped options to
+    primaryUser = userConfig.user.username;
     # macOS system version - this should match your target macOS version
     # Check with: sw_vers
     stateVersion = 5;
@@ -186,16 +192,6 @@
   programs = {
     # zsh is the default shell on macOS
     zsh.enable = true;
-  };
-
-  # ==========================================================================
-  # SERVICES
-  # ==========================================================================
-  # System services configuration
-  
-  services = {
-    # Nix daemon - required for multi-user Nix installation
-    nix-daemon.enable = true;
   };
 
   # ==========================================================================
