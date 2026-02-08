@@ -253,16 +253,6 @@
   };
 
   # ==========================================================================
-  # TIME MACHINE
-  # ==========================================================================
-  # Configure Time Machine
-  
-  system.defaults.TimeMachine = {
-    # Don't prompt to use new hard drives as backup volume
-    DoNotOfferNewDisksForBackup = true;
-  };
-
-  # ==========================================================================
   # MISC SETTINGS
   # ==========================================================================
   
@@ -284,18 +274,14 @@
   };
 
   # ==========================================================================
-  # CUSTOM USER DEFAULTS
+  # FINDER
   # ==========================================================================
-  # For settings not covered by nix-darwin options, you can use CustomUserPreferences
-  # This directly sets macOS defaults using the `defaults` command
-  
-  system.defaults.CustomUserPreferences = {
-    # Example: Configure specific app settings
-    # "com.apple.finder" = {
-    #   ShowExternalHardDrivesOnDesktop = true;
-    #   ShowHardDrivesOnDesktop = false;
-    #   ShowMountedServersOnDesktop = true;
-    #   ShowRemovableMediaOnDesktop = true;
-    # };
+
+  system.defaults.finder = {
+    AppleShowAllExtensions = true;
+    AppleShowAllFiles = true;
+    ShowPathbar = true;
+    ShowStatusBar = true;
+    _FXSortFoldersFirst = true;
   };
 }
