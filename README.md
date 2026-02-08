@@ -17,7 +17,7 @@ Inspired by [gvolpe/nix-config](https://github.com/gvolpe/nix-config).
 ### 1. Install Nix
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+curl -L https://nixos.org/nix/install | sh
 ```
 
 Close and reopen your terminal after installation.

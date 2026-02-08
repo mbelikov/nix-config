@@ -66,8 +66,25 @@
     # ========================================================================
     # Import user-specific settings from user-config.nix
     # This is the ONLY file you need to edit for personal settings!
-    userConfig = import ./user-config.nix;
-    
+
+    # Prefer a local-only config outside the repo
+    localUserConfigPath = "${builtins.getEnv "HOME"}/.config/nix/user-config.nix";
+
+    userConfig =
+      if builtins.pathExists localUserConfigPath then
+        import (builtins.path { path = localUserConfigPath; name = "local-user-config"; })
+      else if builtins.pathExists ./user-config.nix then
+        import ./user-config.nix
+      else
+        throw ''
+          Missing user config.
+
+          Create:
+            ${localUserConfigPath}
+
+          Or add ./user-config.nix (tracked by git) if you want it in-repo.
+        '';
+
   in
   {
 
