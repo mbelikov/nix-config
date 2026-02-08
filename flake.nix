@@ -68,11 +68,11 @@
     # This is the ONLY file you need to edit for personal settings!
 
     # Prefer a local-only config outside the repo
-    localUserConfigPath = "${builtins.getEnv "HOME"}/.config/nix/user-config.nix";
+    userConfigNix = builtins.getEnv "USER_CONFIG_NIX";
 
     userConfig =
-      if builtins.pathExists localUserConfigPath then
-        import (builtins.path { path = localUserConfigPath; name = "local-user-config"; })
+      if builtins.pathExists userConfigNix then
+        import (builtins.path { path = userConfigNix; name = "local-user-config"; })
       else if builtins.pathExists ./user-config.nix then
         import ./user-config.nix
       else
