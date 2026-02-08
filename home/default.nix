@@ -15,7 +15,7 @@
 #
 # ============================================================================
 
-{ config, pkgs, userConfig, ... }:
+{ config, pkgs, userConfig, lib, ... }:
 
 {
   # ==========================================================================
@@ -30,6 +30,11 @@
   home.homeDirectory = "/Users/${userConfig.user.username}";
   home.username = userConfig.user.username;
 
+  nixpkgs.config = {
+    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "terraform"
+    ];
+  };
 
   # ==========================================================================
   # USER PACKAGES
