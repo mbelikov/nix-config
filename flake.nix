@@ -80,7 +80,7 @@
           Missing user config.
 
           Create:
-            ${localUserConfigPath}
+            ~/.config/nix/user-config.nix
 
           Or add ./user-config.nix (tracked by git) if you want it in-repo.
         '';
