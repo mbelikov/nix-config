@@ -13,7 +13,7 @@
 #
 # ============================================================================
 
-{ config, pkgs, userConfig, ... }:
+{ config, pkgs, userConfig, lib, ... }:
 
 {
 
@@ -22,13 +22,18 @@
   # ==========================================================================
   # Configure the Nix package manager itself
 
-  nix.enable = true;
+  # Allow only Terraform (unfree) from nixpkgs
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "terraform"
+    ];
 
-  nix.settings.ssl-cert-file = "/etc/ssl/cert.pem";
+  nix.enable = true;
 
   nix.settings = {
     # Enable experimental features (required for flakes)
     experimental-features = "nix-command flakes";
+    ssl-cert-file = "/etc/ssl/cert.pem";
   };
 
   # Optimize storage by hard-linking identical files
