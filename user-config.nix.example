@@ -1,0 +1,90 @@
+# ============================================================================
+# user-config.nix - Centralized User Configuration
+# ============================================================================
+#
+# This file contains all your personal settings in one place.
+# Edit this file to customize the configuration for your system.
+#
+# IMPORTANT: This is the ONLY file you need to edit for personal settings!
+# All other .nix files will automatically use these values.
+#
+# ============================================================================
+
+{
+  # ==========================================================================
+  # PERSONAL INFORMATION
+  # ==========================================================================
+  
+  user = {
+    # Your full name (used in git commits, etc.)
+    name = "mbelikov";
+    
+    # Your macOS username (run: whoami)
+    username = "mike";
+    
+    # Your default email address
+    email = "your.email@example.com";  # CHANGE THIS!
+  };
+
+  # ==========================================================================
+  # GIT IDENTITIES
+  # ==========================================================================
+  # Different email addresses for different project types
+  
+  git = {
+    # Personal/private projects email
+    privateEmail = "your-personal@email.com";  # CHANGE THIS!
+    
+    # Work projects email
+    workEmail = "your-work@email.com";  # CHANGE THIS!
+    
+    # Optional: GPG signing keys (leave empty if not using)
+    privateSigningKey = "";  # Your personal GPG key ID
+    workSigningKey = "";     # Your work GPG key ID
+  };
+
+  # ==========================================================================
+  # DIRECTORY STRUCTURE
+  # ==========================================================================
+  # Customize where you keep your projects
+  
+  directories = {
+    # Main development directory name (relative to home)
+    # Options: "development", "dev", "projects", "code", etc.
+    development = "development";
+    
+    # Subdirectories for different project types (relative to development dir)
+    private = "private";  # Personal projects
+    work = "work";        # Work projects
+  };
+
+  # ==========================================================================
+  # SYSTEM INFORMATION
+  # ==========================================================================
+  
+  system = {
+    # Your computer's hostname (run: scutil --get LocalHostName)
+    hostname = "Mikes-MacBook-Pro";  # CHANGE THIS!
+    
+    # System architecture
+    # Options: "aarch64-darwin" (Apple Silicon M1/M2/M3)
+    #          "x86_64-darwin" (Intel Mac)
+    architecture = "aarch64-darwin";  # CHANGE THIS if Intel Mac!
+  };
+
+  # ==========================================================================
+  # OPTIONAL: ADDITIONAL SETTINGS
+  # ==========================================================================
+  # Add any other personal preferences here
+  
+  preferences = {
+    # Default editor
+    editor = "vim";
+    
+    # Default shell
+    shell = "zsh";
+    
+    # Timezone (optional)
+    # timezone = "Europe/Berlin";
+  };
+}
