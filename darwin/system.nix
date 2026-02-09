@@ -39,13 +39,13 @@
     # Dock icon size (in pixels)
     # Default is 64, you want 30% which is approximately 48 pixels
     # Range: 16-128
-    tilesize = 48;
+    tilesize = 24;
     
     # Magnification factor when hovering over icons
     # You want 1.5x magnification
     # This is enabled by setting largesize
     magnification = true;
-    largesize = 72;  # 48 * 1.5 = 72
+    largesize = 36;  # 24 * 1.5 = 36
     
     # Automatically hide and show the Dock
     autohide = false;
