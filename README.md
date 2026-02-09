@@ -53,7 +53,7 @@ vim user-config.nix
 - `user.email` - Your default email
 - `git.privateEmail` - Personal email for `~/development/private/` projects
 - `git.workEmail` - Work email for `~/development/work/` projects
-- `system.hostname` - Computer name (run `scutil --get ComputerName`)
+- `system.hostname` - Computer name (run `scutil --get LocalHostName`)
 - `system.architecture` - `aarch64-darwin` (Apple Silicon) or `x86_64-darwin` (Intel)
 
 **Optional:**
@@ -64,7 +64,9 @@ vim user-config.nix
 
 ```bash
 # First-time installation (installs nix-darwin)
-nix run nix-darwin -- switch --flake .
+sudo -H env USER_CONFIG_NIX=/Users/<your-home-directory>/.config/nix/user-config.nix nix \
+  --extra-experimental-features "nix-command flakes" \
+  run nix-darwin -- switch --flake ./nix-config --impure
 
 # Subsequent updates
 darwin-rebuild switch --flake ~/.config/nix-config

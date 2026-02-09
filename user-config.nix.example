@@ -63,7 +63,7 @@
   # ==========================================================================
   
   system = {
-    # Your computer's hostname (run: scutil --get ComputerName)
+    # Your computer's hostname (run: scutil --get LocalHostName)
     hostname = "Mikes-MacBook-Pro";  # CHANGE THIS!
     
     # System architecture

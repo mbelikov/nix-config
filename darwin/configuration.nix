@@ -147,7 +147,7 @@
       "lens"                # Kubernetes IDE
       
       # Virtualization
-      "parallels"           # Parallels Desktop
+#      "parallels"           # Parallels Desktop
       
       # AI/ML
       "lm-studio"           # Local LLM runner
