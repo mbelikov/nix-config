@@ -194,8 +194,7 @@
       enable = true;
       
       # Oh-my-zsh theme
-      # Popular themes: "robbyrussell", "agnoster", "powerlevel10k/powerlevel10k"
-      theme = "robbyrussell";
+      theme = "af-magic";
       
       # Oh-my-zsh plugins
       # See: https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
@@ -276,7 +275,7 @@
       kgs = "kubectl get services";
       
       # Nix shortcuts
-      nix-rebuild = "darwin-rebuild switch --flake ~/.config/nix-config";
+      nix-rebuild = "sudo -H env USER_CONFIG_NIX=~/.config/nix/user-config.nix darwin-rebuild switch --flake ~/.config/nix-config --impure";
       nix-update = "cd ~/.config/nix-config && nix flake update && darwin-rebuild switch --flake .";
     };
     
@@ -288,7 +287,7 @@
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
       
       # Better history search
-      bindkey '^R' history-incremental-search-backward
+#      bindkey '^R' history-incremental-search-backward
       
       # NVM configuration (if you install it manually)
       # export NVM_DIR="$HOME/.nvm"

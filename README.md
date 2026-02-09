@@ -8,9 +8,9 @@ Inspired by [gvolpe/nix-config](https://github.com/gvolpe/nix-config).
 
 ## 📋 Prerequisites
 
-- macOS 12.0+ (Monterey or later)
+- macOS 15.0+ (it could work on older versions, though)
 - Administrator access
-- ~5GB free disk space
+- ~10GB free disk space
 
 ## 🚀 Quick Setup
 
@@ -69,7 +69,6 @@ sudo -H env USER_CONFIG_NIX=/Users/<your-home-directory>/.config/nix/user-config
   run nix-darwin -- switch --flake ./nix-config --impure
 
 # Subsequent updates
-darwin-rebuild switch --flake ~/.config/nix-config
 sudo -H env USER_CONFIG_NIX=/Users/<your-home-directory>/.config/nix/user-config.nix \
   darwin-rebuild switch --flake ~/.config/nix-config --impure
 ```
@@ -130,7 +129,7 @@ git config user.email  # Should show your work email
 **Via Homebrew:**
 - Docker Desktop, VSCode, iTerm2
 - Hammerspoon, MonitorControl
-- Lens, Parallels, LM Studio
+- Lens, LM Studio
 - iStat Menus
 - maven, ant, fzf, mactop, mole
 
@@ -163,7 +162,7 @@ darwin-rebuild switch --flake ~/.config/nix-config
 ```bash
 cd ~/.config/nix-config
 nix flake update
-darwin-rebuild switch --flake .
+nix-rebuild
 ```
 
 ### Rollback Changes
@@ -183,11 +182,11 @@ darwin-rebuild --rollback
 **Nix packages** (CLI tools):
 1. Search: `nix search nixpkgs <package-name>`
 2. Add to `home/default.nix` → `home.packages`
-3. Apply: `darwin-rebuild switch --flake ~/.config/nix-config`
+3. Apply: `nix-rebuild`
 
 **Homebrew casks** (GUI apps):
 1. Add to `darwin/configuration.nix` → `homebrew.casks`
-2. Apply: `darwin-rebuild switch --flake ~/.config/nix-config`
+2. Apply: `nix-rebuild`
 
 ---
 
@@ -219,12 +218,6 @@ System settings will remain as configured. To reset:
 - Go to System Preferences and manually adjust settings
 - Or use `defaults delete` commands for specific preferences
 
-### Uninstall Homebrew (Optional)
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
-```
-
 ---
 
 ## 📁 Project Structure
@@ -244,65 +237,13 @@ nix-config/
 
 ---
 
-## 🎯 Key Features
-
-✅ **Centralized Configuration** - Edit `user-config.nix` once, updates everywhere  
-✅ **Reproducible** - Same config = same result every time  
-✅ **Rollback Support** - Easy to revert if something breaks  
-✅ **Git Identity Switching** - Automatic email switching by directory  
-✅ **Heavily Commented** - Every option explained  
-✅ **Hybrid Approach** - Nix + Homebrew for best macOS experience  
-
----
-
-## 🐛 Troubleshooting
-
-### "error: experimental Nix feature 'flakes' is disabled"
-
-```bash
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-```
-
-### Homebrew casks not installing
-
-Install Homebrew first, then rebuild:
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-darwin-rebuild switch --flake ~/.config/nix-config
-```
-
-### Settings not applying
-
-1. Check syntax: `nix flake check ~/.config/nix-config`
-2. Some settings require logout/restart
-3. Use verbose output: `darwin-rebuild switch --flake ~/.config/nix-config --show-trace`
-
-### Git identity not changing
-
-1. Verify directory structure matches `user-config.nix`
-2. Check which config is active: `git config --show-origin user.email`
-3. Ensure you're in the correct subdirectory (`~/Development/private/` or `~/Development/work/`)
-
----
-
-## 📝 Manual Configuration Steps
-
-Some settings can't be automated:
-
-1. **Keyboard Input Sources**: System Preferences → Keyboard → Input Sources → Add ABC, German, Russian
-2. **Function Keys**: System Preferences → Keyboard → Check "Use F1, F2, etc. keys as standard function keys"
-3. **Screen Saver**: System Preferences → Screen Saver → Select "Kelp Dark"
-4. **Three-Finger Drag**: System Preferences → Accessibility → Pointer Control → Trackpad Options → Enable dragging → three finger drag
-
----
-
 ## 📚 Resources
 
-- [Nix Darwin Manual](https://daiderd.com/nix-darwin/manual/index.html)
+- [nix-darwin Configuration Options](https://nix-darwin.github.io/nix-darwin/manual/index.html)
 - [Home Manager Manual](https://nix-community.github.io/home-manager/)
 - [NixOS Package Search](https://search.nixos.org/packages)
-- [Nix Language Basics](https://nixos.org/manual/nix/stable/language/)
+- [Nix reference manual](https://nix.dev/reference/nix-manual)
+- [Nix language basics](https://nix.dev/tutorials/nix-language)
 
 ---
 
