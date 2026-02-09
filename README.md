@@ -41,10 +41,12 @@ cd nix-config
 
 ### 4. Customize Your Configuration
 
-**Edit `user-config.nix`** - This is the ONLY file you need to customize:
+**Create/edit `user-config.nix`** - This is the file you need to customize:
 
 ```bash
-vim user-config.nix
+mkdir -p ~/.config/nix
+cp user-config.nix.example ~/.config/nix/user-config.nix
+vim ~/.config/nix/user-config.nix
 ```
 
 **Required changes:**
