@@ -83,6 +83,9 @@
     # Git tools
     gh             # GitHub CLI
     git-lfs        # Git Large File Storage
+
+    # Scala coursier
+    coursier
   ];
 
   # ==========================================================================

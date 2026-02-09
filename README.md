@@ -70,6 +70,8 @@ sudo -H env USER_CONFIG_NIX=/Users/<your-home-directory>/.config/nix/user-config
 
 # Subsequent updates
 darwin-rebuild switch --flake ~/.config/nix-config
+sudo -H env USER_CONFIG_NIX=/Users/<your-home-directory>/.config/nix/user-config.nix \
+  darwin-rebuild switch --flake ~/.config/nix-config --impure
 ```
 
 **This will take 10-30 minutes** on first run.
