@@ -138,7 +138,8 @@
       "docker"              # Docker Desktop
       "visual-studio-code"  # VSCode
       "iterm2"              # Terminal emulator
-      
+      "intellij-idea"
+
       # Utilities
       "hammerspoon"         # Automation tool
       "monitorcontrol"      # Monitor brightness control
