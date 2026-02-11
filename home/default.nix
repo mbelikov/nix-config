@@ -433,7 +433,7 @@
     # Uncomment and customize as needed
     
     # Hammerspoon configuration
-    # ".hammerspoon/init.lua".source = ./dotfiles/hammerspoon/init.lua;
+    ".hammerspoon/init.lua".source = ./dotfiles/hammerspoon/init.lua;
     
     # iTerm2 configuration
     # Note: iTerm2 preferences are usually in ~/Library/Preferences/
