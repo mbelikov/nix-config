@@ -125,6 +125,12 @@
       
       # Network tools
       "mole"        # SSH tunnel manager
+
+      # Scala coursier
+      "coursier"
+
+      # File managers
+      "mc"
     ];
 
     # ========================================================================
@@ -155,6 +161,9 @@
       
       # System monitoring
       "istat-menus"         # System monitor
+
+      # File managers
+      "far2l"               # Port of the FAR Manager v2 to nix
     ];
 
     # ========================================================================
