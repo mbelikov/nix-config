@@ -85,13 +85,6 @@
     # Git tools
     gh             # GitHub CLI
     git-lfs        # Git Large File Storage
-
-    # Scala coursier
-    coursier
-
-    # Misc
-    mc
-    far2l
   ];
 
   # ==========================================================================
@@ -277,7 +270,6 @@
       kgs = "kubectl get services";
       
       # Nix shortcuts
-      nix-rebuild = "sudo -H env USER_CONFIG_NIX=~/.config/nix/user-config.nix darwin-rebuild switch --flake ~/.config/nix-config --impure";
       nix-update = "cd ~/.config/nix-config && nix flake update && darwin-rebuild switch --flake .";
     };
     
@@ -299,6 +291,10 @@
       # export PATH="$PATH:$HOME/Library/Application Support/Coursier/bin"
       
       # Add any custom functions or configurations here
+
+      nix-rebuild() {
+        sudo -H env USER_CONFIG_NIX="$1" darwin-rebuild switch --flake "$HOME/.config/nix-config" --impure --show-trace
+      }
     '';
     
     # History configuration
