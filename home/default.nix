@@ -11,17 +11,18 @@
 # Home Manager allows you to manage your dotfiles declaratively!
 # Instead of scattered files in ~/, everything is version-controlled here.
 #
-# IMPORTANT: Change "mikhailbelikov" in flake.nix to match your username
-#
 # ============================================================================
 
 { config, pkgs, userConfig, ... }:
 
 {
+  imports = [
+    ./coursier-jdks.nix
+  ];
+
   # ==========================================================================
   # HOME MANAGER SETTINGS
   # ==========================================================================
-  
   # Home Manager version - should match your system
   # This rarely needs to change
   home.stateVersion = "24.05";
