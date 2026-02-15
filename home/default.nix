@@ -11,13 +11,15 @@
 # Home Manager allows you to manage your dotfiles declaratively!
 # Instead of scattered files in ~/, everything is version-controlled here.
 #
-# IMPORTANT: Change "mikhailbelikov" in flake.nix to match your username
-#
 # ============================================================================
 
 { config, pkgs, userConfig, ... }:
 
 {
+  imports = [
+    ./jdks.nix
+  ];
+
   # ==========================================================================
   # HOME MANAGER SETTINGS
   # ==========================================================================
@@ -280,7 +282,7 @@
     };
     
     # Additional zsh configuration
-    initExtra = ''
+    initContent = ''
       # Custom prompt or additional configuration
       
       # Enable case-insensitive completion
