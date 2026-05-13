@@ -184,6 +184,11 @@
   programs.zsh = {
     enable = true;
     
+    # Explicitly set dotDir to silence deprecation warning and adopt XDG layout.
+    # (The default will change in home-manager 26.05; setting it now locks in
+    # the new XDG behavior and works well with `xdg.enable = true` above.)
+    dotDir = "${config.xdg.configHome}/zsh";
+    
     # Enable oh-my-zsh integration
     oh-my-zsh = {
       enable = true;
