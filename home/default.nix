@@ -52,24 +52,20 @@
     k9s            # Kubernetes TUI
     terraform      # Infrastructure as Code
     kind           # Kubernetes in Docker
+    colima         # Container runtimes on macOS
+    docker-credential-helpers # Suite of programs to use native stores to keep Docker credentials safe.
     
     # Shell utilities
-    # fzf          # Fuzzy finder (installed via Homebrew)
     ripgrep        # Fast grep alternative (rg)
     fd             # Fast find alternative
     bat            # Cat with syntax highlighting
     eza            # Modern ls replacement
     
-    # Network tools
-    # mole is installed via Homebrew
-    
     # File managers
     # far2l is installed via Homebrew
     
     # System monitoring
-    # htop is in system packages
-    # mactop is installed via Homebrew
-    
+
     # Development environments
     # coursier will be installed separately
     # nvm will be managed via shell configuration

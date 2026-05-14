@@ -116,18 +116,16 @@
       # Development tools
       "maven"       # Java build tool
       "ant"         # Java build tool
-      
+      "docker-compose"
+
       # Shell tools
+      "autoenv"     # Per-directory shell environments
       "fzf"         # Fuzzy finder
       
       # System utilities
+      "knock"       # A port-knocking implementation
       "mactop"      # macOS activity monitor
-      
-      # Network tools
-      "mole"        # SSH tunnel manager
-
-      # Scala coursier
-      "coursier"
+      "mole"        # Mac cleaner and optimizer
 
       # File managers
       "mc"
@@ -148,6 +146,8 @@
 
       # Utilities
       "hammerspoon"         # Automation tool
+      "keepassxc"           # Cross-platform Password Manager
+      "keystore-explorer"   # GUI replacement for the Java command-line utilities keytool and jarsigner
       "monitorcontrol"      # Monitor brightness control
       
       # Kubernetes tools
