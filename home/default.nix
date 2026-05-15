@@ -461,10 +461,7 @@
   home.sessionVariables = {
     EDITOR = "vim";
     VISUAL = "vim";
-    
-    # Add custom paths
-    # PATH = "$PATH:$HOME/bin";
-  };
+  } // userConfig.extraEnv;
 
   # ==========================================================================
   # XDG BASE DIRECTORIES

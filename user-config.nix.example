@@ -80,11 +80,29 @@
   preferences = {
     # Default editor
     editor = "vim";
-    
+
     # Default shell
     shell = "zsh";
-    
+
     # Timezone (optional)
     # timezone = "Europe/Berlin";
+  };
+
+  # ==========================================================================
+  # EXTRA ENVIRONMENT VARIABLES
+  # ==========================================================================
+  # Variables set in every shell session via home.sessionVariables.
+  # Use for credentials, tokens, and tool-specific config that varies per user.
+  # Anything here ends up in ~/.config/zsh/.zshenv (or equivalent) — don't
+  # put secrets you wouldn't want in a process list.
+  #
+  # Example:
+  #   extraEnv = {
+  #     ARTIFACTORY_USERNAME = "your-username";
+  #     ARTIFACTORY_PASSWORD = "";
+  #     MAVEN_OPTS = "-Xmx16g -Xss10m";
+  #   };
+
+  extraEnv = {
   };
 }
