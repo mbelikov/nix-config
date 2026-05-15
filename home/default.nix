@@ -52,24 +52,20 @@
     k9s            # Kubernetes TUI
     terraform      # Infrastructure as Code
     kind           # Kubernetes in Docker
+    colima         # Container runtimes on macOS
+    docker-credential-helpers # Suite of programs to use native stores to keep Docker credentials safe.
     
     # Shell utilities
-    # fzf          # Fuzzy finder (installed via Homebrew)
     ripgrep        # Fast grep alternative (rg)
     fd             # Fast find alternative
     bat            # Cat with syntax highlighting
     eza            # Modern ls replacement
     
-    # Network tools
-    # mole is installed via Homebrew
-    
     # File managers
     # far2l is installed via Homebrew
     
     # System monitoring
-    # htop is in system packages
-    # mactop is installed via Homebrew
-    
+
     # Development environments
     # coursier will be installed separately
     # nvm will be managed via shell configuration
@@ -143,30 +139,7 @@
       
       # Reuse recorded resolution of conflicted merges
       rerere.enabled = true;
-      
-      # ======================================================================
-      # CONDITIONAL INCLUDES - Directory-Based Git Identities
-      # ======================================================================
-      # Automatically use different git configs based on project directory
-      # Directories are configured in user-config.nix
-      #
-      # SETUP:
-      # 1. Directories are created based on user-config.nix settings
-      # 2. Email addresses are set in user-config.nix
-      # 3. Clone personal projects to ~/${userConfig.directories.development}/${userConfig.directories.private}/
-      # 4. Clone work projects to ~/${userConfig.directories.development}/${userConfig.directories.work}/
-      #
-      # VERIFY:
-      # cd ~/${userConfig.directories.development}/${userConfig.directories.private}/some-project && git config user.email
-      # cd ~/${userConfig.directories.development}/${userConfig.directories.work}/some-project && git config user.email
-      
-      # Personal/private projects
-      includeIf."gitdir:~/${userConfig.directories.development}/${userConfig.directories.private}/".path = "~/.gitconfig-private";
-      
-      # Work projects
-      includeIf."gitdir:~/${userConfig.directories.development}/${userConfig.directories.work}/".path = "~/.gitconfig-work";
 
-      
       # ======================================================================
       # SAFE DIRECTORIES
       # ======================================================================
@@ -175,6 +148,35 @@
       
       safe.directory = "/opt/homebrew";
     };
+
+
+    # ======================================================================
+    # CONDITIONAL INCLUDES - Directory-Based Git Identities
+    # ======================================================================
+    # Automatically use different git configs based on project directory
+    # Directories are configured in user-config.nix
+    #
+    # SETUP:
+    # 1. Directories are created based on user-config.nix settings
+    # 2. Email addresses are set in user-config.nix
+    # 3. Clone personal projects to ~/${userConfig.directories.development}/${userConfig.directories.private}/
+    # 4. Clone work projects to ~/${userConfig.directories.development}/${userConfig.directories.work}/
+    #
+    # VERIFY:
+    # cd ~/${userConfig.directories.development}/${userConfig.directories.private}/some-project && git config user.email
+    # cd ~/${userConfig.directories.development}/${userConfig.directories.work}/some-project && git config user.email
+    # Placed via `includes` so they appear after [user] in the generated file,
+    # ensuring they override the default identity rather than being overridden by it.
+    includes = [
+      {
+        condition = "gitdir:~/${userConfig.directories.development}/${userConfig.directories.private}/";
+        path = "~/.gitconfig-private";
+      }
+      {
+        condition = "gitdir:~/${userConfig.directories.development}/${userConfig.directories.work}/";
+        path = "~/.gitconfig-work";
+      }
+    ];
   };
 
 
