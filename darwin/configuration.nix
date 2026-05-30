@@ -117,6 +117,7 @@
       "maven"       # Java build tool
       "ant"         # Java build tool
       "docker-compose"
+      "python"
 
       # Shell tools
       "autoenv"     # Per-directory shell environments
@@ -143,6 +144,10 @@
       "visual-studio-code"  # VSCode
       "iterm2"              # Terminal emulator
       "intellij-idea"
+      "zed"
+      "claude-code"
+      "claude"
+      "opencode-desktop"
 
       # Utilities
       "hammerspoon"         # Automation tool
