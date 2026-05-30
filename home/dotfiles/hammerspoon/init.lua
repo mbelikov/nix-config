@@ -8,19 +8,21 @@
     edge   = cmd + alt + arrows          (resize from the left/top edge)
 
   Shortcuts:
-    hyper + F          Focus / launch far2l
-    hyper + I          Focus / launch iTerm2
-    hyper + W          Show a "Hello World!" alert (smoke test)
-    hyper + L          Apply the LG ULTRAWIDE window layout
-    hyper + S          Throw the focused window to the next screen
-    hyper + M          Toggle maximize: maximize, or restore previous frame
-    hyper + H          Toggle hide: minimize all windows, or restore them
-    hyper + C          Cycle the focused window clockwise through corners
-    hyper + N          Open the news sites in Safari
+    hyper + F               Focus / launch far2l
+    hyper + I               Focus / launch iTerm2
+    hyper + W               Show a "Hello World!" alert (smoke test)
+    hyper + L               Apply the LG ULTRAWIDE window layout
+    hyper + S               Throw the focused window to the next screen
+    hyper + M               Toggle maximize: maximize, or restore previous frame
+    hyper + H               Toggle hide: minimize all windows, or restore them
+    alt + ctrl + H          Minimize only the focused window
+    alt + ctrl + shift + H  Pick a minimized window to restore (searchable list)
+    hyper + C               Cycle the focused window clockwise through corners
+    hyper + N               Open the news sites in Safari
     hyper + Left/Right/Up/Down      Move the focused window
-    hyper + shift + R  Reload this configuration
+    hyper + shift + R       Reload this configuration
 
-    alt + ctrl + Left/Right         Resize width  (right edge)
+    alt + ctrl + Left/Right        Resize width  (right edge)
     alt + ctrl + Up/Down           Resize height (bottom edge)
     cmd + alt + Left/Right         Resize width  (left edge)
     cmd + alt + Up/Down            Resize height (top edge)
@@ -34,7 +36,6 @@ local intellijName =    "IntelliJ IDEA"
 local safariName =      "Safari"
 local safariBundleID =  "com.apple.Safari"
 local lgScreen =        "LG ULTRAWIDE"
-local macScreen =       "Colour LCD"
 
 local newsSites = {
   "https://medium.com",
@@ -50,7 +51,7 @@ local function activateAppBy(appName)
 	app:activate(true)
 end
 
-function stringStarts(String,Start)
+local function stringStarts(String,Start)
    return string.sub(String,1,string.len(Start)) == Start
 end
 
@@ -77,8 +78,6 @@ end
 local function resize(how, delta)
   local win = hs.window.focusedWindow()
   local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
 
   if how == "incW" then
     f.w = f.w + delta
@@ -214,6 +213,48 @@ hs.hotkey.bind(hyper, "H", function()
       end
     end
   end
+end)
+
+-- Minimize only the focused window. No bookkeeping needed: macOS keeps the
+-- window minimized in the Dock until it is restored (e.g. via hyper+shift+H).
+hs.hotkey.bind({"alt", "ctrl"}, "H", function()
+  local win = hs.window.focusedWindow()
+  if win then win:minimize() end
+end)
+
+-- Pick a minimized window to restore. hs.chooser gives a searchable list with
+-- type-to-filter and up/down arrow navigation; Enter restores the selection.
+hs.hotkey.bind({"alt", "ctrl", "shift"}, "H", function()
+  local choices = {}
+  for _, win in ipairs(hs.window.minimizedWindows()) do
+    local app = win:application()
+    local appName = app and app:name() or "?"
+    local choice = {
+      text = appName,
+      subText = win:title() or "",
+      winId = win:id(),
+    }
+    if app and app:bundleID() then
+      choice.image = hs.image.imageFromAppBundle(app:bundleID())
+    end
+    table.insert(choices, choice)
+  end
+
+  if #choices == 0 then
+    hs.alert.show("No minimized windows")
+    return
+  end
+
+  local chooser = hs.chooser.new(function(choice)
+    if not choice then return end
+    local win = hs.window.get(choice.winId)
+    if win then
+      win:unminimize()
+      win:focus()
+    end
+  end)
+  chooser:choices(choices)
+  chooser:show()
 end)
 
 hs.hotkey.bind(hyper, "Left", function()
