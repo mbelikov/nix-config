@@ -439,6 +439,8 @@
     
     # Hammerspoon configuration
     ".hammerspoon/init.lua".source = ./dotfiles/hammerspoon/init.lua;
+
+    # far2l configuration is wired below via xdg.configFile (see ~/.config/far2l)
     
     # iTerm2 configuration
     # Note: iTerm2 preferences are usually in ~/Library/Preferences/
@@ -469,7 +471,23 @@
   # Follow XDG Base Directory specification for cleaner home directory
   
   xdg.enable = true;
-  
+
+  # ==========================================================================
+  # XDG CONFIG FILES (~/.config)
+  # ==========================================================================
+  # Declaratively managed files under ~/.config. Only abstract, environment-
+  # agnostic config belongs here.
+  #
+  # NOTE: far2l rewrites its own config at runtime. These files are symlinked
+  # read-only into the Nix store, so they act as the declarative source of
+  # truth. If you change the font/palette inside far2l's UI, the change won't
+  # persist (it's overwritten on the next rebuild). To re-capture a value,
+  # copy the file from ~/.config/far2l/ back into home/dotfiles/far2l/.
+  xdg.configFile = {
+    "far2l/font".source = ./dotfiles/far2l/font;
+  };
+
+
   # This creates:
   # ~/.config (XDG_CONFIG_HOME)
   # ~/.cache (XDG_CACHE_HOME)
