@@ -277,7 +277,8 @@
       kgs = "kubectl get services";
       
       # Nix shortcuts
-      nix-update = "cd ~/.config/nix-config && nix flake update && darwin-rebuild switch --flake .";
+      # NOTE: `nix-rebuild` and `nix-update` are defined as functions in
+      # initContent below (they need argument handling and a shared flake path).
     };
     
     # Additional zsh configuration
@@ -299,8 +300,24 @@
       
       # Add any custom functions or configurations here
 
+      # ----- Nix / nix-darwin rebuild helpers -------------------------------
+      # Single source of truth for the flake location and the (local,
+      # gitignored) user config, so the helpers can never drift apart.
+      export NIX_CONFIG_DIR="$HOME/.config/nix-config"
+      : "''${USER_CONFIG_NIX:=$HOME/.config/nix/user-config.nix}"
+      export USER_CONFIG_NIX
+
+      # Rebuild & switch. Optional first arg overrides the user-config path.
       nix-rebuild() {
-        sudo -H env USER_CONFIG_NIX="$1" darwin-rebuild switch --flake "$HOME/.config/nix-config" --impure --show-trace
+        local cfg="''${1:-$USER_CONFIG_NIX}"
+        sudo -H env USER_CONFIG_NIX="$cfg" \
+          darwin-rebuild switch --flake "$NIX_CONFIG_DIR" --impure --show-trace
+      }
+
+      # Update flake inputs (flake.lock), then rebuild & switch.
+      nix-update() {
+        ( cd "$NIX_CONFIG_DIR" && nix flake update )
+        nix-rebuild "$@"
       }
     '';
     
