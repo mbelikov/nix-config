@@ -81,6 +81,9 @@
     # Git tools
     gh             # GitHub CLI
     git-lfs        # Git Large File Storage
+
+    # Code formatting
+    prettier       # Opinionated code formatter (CLI, bundles its own Node)
   ];
 
   # ==========================================================================
