@@ -94,6 +94,12 @@
       autoUpdate = true;      # Update Homebrew itself
       upgrade = true;         # Upgrade all packages
       cleanup = "zap";        # Remove unlisted packages and old versions
+
+      # Homebrew >=4.x refuses `brew bundle --cleanup` unless one of
+      # --force / --force-cleanup / $HOMEBREW_ASK is given. nix-darwin
+      # doesn't add it automatically, so pass it through here. Without
+      # this, activation fails at the "Homebrew bundle..." step.
+      extraFlags = [ "--force" ];
     };
 
     # ========================================================================

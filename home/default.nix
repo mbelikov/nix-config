@@ -310,11 +310,20 @@
       : "''${USER_CONFIG_NIX:=$HOME/.config/nix/user-config.nix}"
       export USER_CONFIG_NIX
 
+      # Reload macOS settings (incl. symbolichotkeys) into the live login
+      # session. Must run as the user, not root, so it stays out of the
+      # sudo block above. nix-darwin doesn't do this itself, so without it
+      # changes like the input-source hotkeys only apply after a re-login.
+      _activate_macos_settings() {
+        /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+      }
+
       # Rebuild & switch. Optional first arg overrides the user-config path.
       nix-rebuild() {
         local cfg="''${1:-$USER_CONFIG_NIX}"
         sudo -H env USER_CONFIG_NIX="$cfg" \
-          darwin-rebuild switch --flake "$NIX_CONFIG_DIR" --impure --show-trace
+          darwin-rebuild switch --flake "$NIX_CONFIG_DIR" --impure --show-trace \
+          && _activate_macos_settings
       }
 
       # Update flake inputs (flake.lock), then rebuild & switch.
