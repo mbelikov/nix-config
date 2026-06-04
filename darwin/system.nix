@@ -126,11 +126,55 @@
     ApplePressAndHoldEnabled = false;
   };
 
-  # Keyboard input sources configuration
-  # Note: Input sources (ABC, German, Russian) need to be configured
-  # via system preferences or using a custom script, as nix-darwin
-  # doesn't have direct options for this yet.
-  # See SETUP-GUIDE.md for manual configuration steps.
+  # Keyboard input source switching shortcuts
+  # nix-darwin has no first-class option for these, so we write the
+  # com.apple.symbolichotkeys defaults domain directly.
+  #
+  # The "parameters" list is [ ASCII, key code, modifier bitmask ]:
+  #   32     = space (ASCII)
+  #   49     = space (virtual key code)
+  #   modifier bitmask flags (sum them):
+  #     shift   = 131072
+  #     control = 262144
+  #     option  = 524288
+  #     command = 1048576
+  #
+  # Hotkey 60 = "Select the previous input source"
+  #   ctrl + option + space            => 262144 + 524288           = 786432
+  # Hotkey 61 = "Select next source in Input menu"
+  #   ctrl + option + shift + space    => 262144 + 524288 + 131072  = 917504
+  #
+  # DUMP / INSPECT CURRENT VALUES:
+  #   defaults read com.apple.symbolichotkeys AppleSymbolicHotKeys
+  #   defaults read com.apple.symbolichotkeys AppleSymbolicHotKeys:61
+  #   defaults export com.apple.symbolichotkeys - | plutil -convert xml1 -o - -
+  # (The on-disk plist is cached by cfprefsd; always go through `defaults`.)
+  #
+  # REFERENCES (IDs and bitmask are community-reverse-engineered, no official docs):
+  # - Virtual key codes (e.g. 49 = space):
+  #     https://eastmanreference.com/complete-list-of-applescript-key-codes
+  # - nix-darwin CustomUserPreferences option:
+  #     https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.CustomUserPreferences
+  system.defaults.CustomUserPreferences = {
+    "com.apple.symbolichotkeys" = {
+      AppleSymbolicHotKeys = {
+        "60" = {
+          enabled = true;
+          value = {
+            type = "standard";
+            parameters = [ 32 49 786432 ];
+          };
+        };
+        "61" = {
+          enabled = true;
+          value = {
+            type = "standard";
+            parameters = [ 32 49 917504 ];
+          };
+        };
+      };
+    };
+  };
 
   # Function keys behavior
   # Make F1, F2, etc. behave as standard function keys
