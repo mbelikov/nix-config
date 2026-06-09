@@ -123,6 +123,7 @@
       "maven"       # Java build tool
       "ant"         # Java build tool
       "docker-compose"
+      "kotlin"
       "python"
 
       # Shell tools
