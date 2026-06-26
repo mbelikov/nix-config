@@ -125,6 +125,7 @@
       "docker-compose"
       "kotlin"
       "python"
+      "node"        # Node.js runtime + npm (for global CLIs like cline)
 
       # Shell tools
       "autoenv"     # Per-directory shell environments
