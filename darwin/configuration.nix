@@ -155,6 +155,7 @@
       "claude-code"
       "claude"
       "opencode-desktop"
+      "drawio"
 
       # Utilities
       "hammerspoon"         # Automation tool
