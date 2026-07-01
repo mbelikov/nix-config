@@ -126,6 +126,9 @@
       "kotlin"
       "python"
       "node"        # Node.js runtime + npm (for global CLIs like cline)
+      "opencode"    # AI coding agent TUI
+      "plantuml"    # UML diagram generator
+      "sevenzip"    # 7-Zip archiver (formula is "sevenzip", not "7zip")
 
       # Shell tools
       "autoenv"     # Per-directory shell environments
@@ -138,6 +141,7 @@
 
       # File managers
       "mc"
+      "yazi"        # Simple and fast file manager written in Rust
     ];
 
     # ========================================================================
@@ -163,7 +167,7 @@
       "keepassxc"           # Cross-platform Password Manager
       "keystore-explorer"   # GUI replacement for the Java command-line utilities keytool and jarsigner
       "monitorcontrol"      # Monitor brightness control
-      
+
       # Kubernetes tools
       "lens"                # Kubernetes IDE
       
