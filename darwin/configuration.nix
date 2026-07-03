@@ -129,6 +129,7 @@
       "opencode"    # AI coding agent TUI
       "plantuml"    # UML diagram generator
       "sevenzip"    # 7-Zip archiver (formula is "sevenzip", not "7zip")
+      "gitlab-ci-local"
 
       # Shell tools
       "autoenv"     # Per-directory shell environments
