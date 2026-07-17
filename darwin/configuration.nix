@@ -139,6 +139,7 @@
       "knock"       # A port-knocking implementation
       "mactop"      # macOS activity monitor
       "mole"        # Mac cleaner and optimizer
+      "yap"         # Mac CLI for on-device speech transcription
 
       # File managers
       "mc"
