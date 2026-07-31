@@ -28,6 +28,32 @@
       "terraform"
     ];
 
+  # ==========================================================================
+  # OVERLAYS - Local Packages Not In nixpkgs
+  # ==========================================================================
+  # An overlay extends the package set, making our own derivations available
+  # as regular `pkgs.<name>` attributes.
+  #
+  # WHY DECLARE IT HERE AND NOT IN home/default.nix?
+  # flake.nix sets `home-manager.useGlobalPkgs = true`, which means
+  # home-manager reuses THIS module's `pkgs` instead of building its own.
+  # Setting `nixpkgs.overlays` inside a home-manager module is therefore
+  # unsupported (it warns today and will become a hard error).
+  #
+  # The upside of that same rule: declaring the overlay once here makes the
+  # package visible to BOTH `environment.systemPackages` below AND
+  # `home.packages` in home/default.nix.
+  #
+  # NOTE: paths are relative to THIS file, hence the leading `../`.
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      # bashup/mdsh - not in nixpkgs or Homebrew; see the file for why the
+      # attribute is NOT called plain `mdsh` (nixpkgs already has one).
+      mdsh-bashup = final.callPackage ../pkgs/mdsh-bashup.nix { };
+    })
+  ];
+
   nix.enable = true;
 
   nix.settings = {
@@ -163,6 +189,7 @@
       "claude"
       "opencode-desktop"
       "drawio"
+      "meld"                # Visual diff and merge tool (cask, not a formula)
 
       # Utilities
       "hammerspoon"         # Automation tool
