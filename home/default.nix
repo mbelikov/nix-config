@@ -84,6 +84,12 @@
 
     # Code formatting
     prettier       # Opinionated code formatter (CLI, bundles its own Node)
+
+    # Literate programming
+    # Provided by our own overlay (see darwin/configuration.nix), because it
+    # is packaged neither in nixpkgs nor Homebrew. Installs a `mdsh` binary.
+    # NOT the same tool as nixpkgs' `mdsh` (zimbatm's Rust pre-processor).
+    mdsh-bashup    # Markdown-based literate programming in bash
   ];
 
   # ==========================================================================
