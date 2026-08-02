@@ -136,6 +136,28 @@
     
     taps = [
       # Example: "homebrew/cask-fonts"
+
+      # Homebrew 6.0 turned on HOMEBREW_REQUIRE_TAP_TRUST by default: it
+      # refuses to load formulae/casks from non-official taps unless they are
+      # trusted, which would abort activation. Interactively that is
+      # `brew trust --tap <name>`; `trusted = true` is the declarative
+      # equivalent (it emits `trusted: true` in the generated Brewfile), so a
+      # fresh machine works unattended.
+
+      # Meeting Transcriber (local, on-device meeting transcription).
+      # Standard tap naming, so the repo is pasrom/homebrew-meeting-transcriber.
+      {
+        name = "pasrom/meeting-transcriber";
+        trusted = true;
+      }
+
+      # OpenOats (local dictation / transcription). The repo is NOT named
+      # `homebrew-openoats`, so the clone URL has to be spelled out.
+      {
+        name = "yazinsai/openoats";
+        clone_target = "https://github.com/yazinsai/OpenOats";
+        trusted = true;
+      }
     ];
 
     # ========================================================================
@@ -211,6 +233,13 @@
 
       # File managers
       "far2l"               # Port of the FAR Manager v2 to nix
+
+      # Transcription (ready-to-use tools; see also uv/ffmpeg in home/default.nix)
+      # The first two come from the third-party taps declared above and are
+      # fully qualified so the Brewfile is unambiguous.
+      "pasrom/meeting-transcriber/meeting-transcriber"  # Meeting transcription
+      "yazinsai/openoats/openoats"                      # OpenOats dictation
+      "muesli"                                          # Local-first dictation & meeting transcription
     ];
 
     # ========================================================================

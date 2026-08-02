@@ -82,6 +82,12 @@
     gh             # GitHub CLI
     git-lfs        # Git Large File Storage
 
+    # Python
+    uv             # Fast Python package/project manager (also `uvx`, `uv python`)
+
+    # Media / transcription experiments
+    ffmpeg         # Audio & video conversion (feed recordings to STT models)
+
     # Code formatting
     prettier       # Opinionated code formatter (CLI, bundles its own Node)
 
