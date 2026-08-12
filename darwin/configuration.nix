@@ -237,6 +237,13 @@
       # Transcription (ready-to-use tools; see also uv/ffmpeg in home/default.nix)
       # The first two come from the third-party taps declared above and are
       # fully qualified so the Brewfile is unambiguous.
+      # NOTE: the pasrom/meeting-transcriber tap ships BOTH a Formula and a
+      # Cask named "meeting-transcriber". The Formula is HEAD-only and points
+      # at the private repo pasrom/Transcriber, so `brew bundle`'s prefetch
+      # can resolve the bare name to the Formula and fail with
+      # "could not read Username for 'https://github.com'". If that recurs,
+      # run `brew upgrade --cask pasrom/meeting-transcriber/meeting-transcriber`
+      # (forces cask resolution) then re-run.
       "pasrom/meeting-transcriber/meeting-transcriber"  # Meeting transcription
       "yazinsai/openoats/openoats"                      # OpenOats dictation
       "muesli"                                          # Local-first dictation & meeting transcription
