@@ -126,6 +126,18 @@
       # doesn't add it automatically, so pass it through here. Without
       # this, activation fails at the "Homebrew bundle..." step.
       extraFlags = [ "--force" ];
+
+      # HOMEBREW_BUNDLE_CASK_SKIP is an official Homebrew variable, listed in
+      # `man brew` and `brew bundle install --help` and read by Bundle::Skipper.
+      # Docs: https://docs.brew.sh/Manpage#bundle-subcommand
+      # It takes a space-separated list of entry names, matched against the
+      # names exactly as written in the Brewfile. That is why the fully
+      # qualified name is used below rather than the short token
+      # "meeting-transcriber". See the cask's entry in the `casks` list below
+      # for the full explanation of why this skip is needed.
+      extraEnv = {
+        HOMEBREW_BUNDLE_CASK_SKIP = "pasrom/meeting-transcriber/meeting-transcriber";
+      };
     };
 
     # ========================================================================
@@ -237,6 +249,18 @@
       # Transcription (ready-to-use tools; see also uv/ffmpeg in home/default.nix)
       # The first two come from the third-party taps declared above and are
       # fully qualified so the Brewfile is unambiguous.
+      # NOTE: the pasrom/meeting-transcriber tap ships BOTH a Formula and a
+      # Cask named "meeting-transcriber". The Formula is HEAD-only and points
+      # at the private repo pasrom/Transcriber, so `brew bundle`'s prefetch
+      # can resolve the bare name to the Formula and fail with
+      # "could not read Username for 'https://github.com'", aborting the
+      # whole bundle. Workaround (two parts): (a) `onActivation.extraEnv`
+      # sets HOMEBREW_BUNDLE_CASK_SKIP for this entry so `brew bundle` skips
+      # it entirely — `cleanup = "zap"` still protects the installed app
+      # because cleanup's kept-cask list ignores the skip; (b) `nix-rebuild`
+      # in home/default.nix pre-upgrades it via `brew upgrade --cask` since
+      # bundle no longer will. Revert both if the tap removes/renames the
+      # Formula; see upstream issue on pasrom/homebrew-meeting-transcriber.
       "pasrom/meeting-transcriber/meeting-transcriber"  # Meeting transcription
       "yazinsai/openoats/openoats"                      # OpenOats dictation
       "muesli"                                          # Local-first dictation & meeting transcription

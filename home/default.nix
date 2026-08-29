@@ -333,6 +333,8 @@
       # Rebuild & switch. Optional first arg overrides the user-config path.
       nix-rebuild() {
         local cfg="''${1:-$USER_CONFIG_NIX}"
+        # brew bundle skips this cask (see darwin/configuration.nix), so upgrade it here instead.
+        brew upgrade --cask pasrom/meeting-transcriber/meeting-transcriber || true
         sudo -H env USER_CONFIG_NIX="$cfg" \
           darwin-rebuild switch --flake "$NIX_CONFIG_DIR" --impure --show-trace \
           && _activate_macos_settings
