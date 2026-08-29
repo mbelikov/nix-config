@@ -170,6 +170,15 @@
         clone_target = "https://github.com/yazinsai/OpenOats";
         trusted = true;
       }
+
+      # oMLX (MLX-based local LLM inference server). The formula lives inside
+      # the main repo, not a separate `homebrew-omlx` repo, so the clone URL
+      # has to be spelled out.
+      {
+        name = "jundot/omlx";
+        clone_target = "https://github.com/jundot/omlx";
+        trusted = true;
+      }
     ];
 
     # ========================================================================
@@ -204,6 +213,9 @@
       # File managers
       "mc"
       "yazi"        # Simple and fast file manager written in Rust
+
+      # AI/ML
+      "jundot/omlx/omlx"  # oMLX: MLX-based local LLM inference server for Apple Silicon (OpenAI-compatible API)
     ];
 
     # ========================================================================
