@@ -199,6 +199,7 @@
       "plantuml"    # UML diagram generator
       "sevenzip"    # 7-Zip archiver (formula is "sevenzip", not "7zip")
       "gitlab-ci-local"
+      "libpq"       # Postgres C API & client tools like pg_dump, psql etc.
 
       # Shell tools
       "autoenv"     # Per-directory shell environments
