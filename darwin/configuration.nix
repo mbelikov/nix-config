@@ -216,7 +216,7 @@
       "yazi"        # Simple and fast file manager written in Rust
 
       # AI/ML
-      #"jundot/omlx/omlx"       # oMLX: MLX-based local LLM inference server for Apple Silicon (OpenAI-compatible API)
+      "jundot/omlx/omlx"       # oMLX: MLX-based local LLM inference server for Apple Silicon (OpenAI-compatible API)
       "youssofal/mtplx/mtplx"  # MTPLX: MLX-based local LLM inference
     ];
 
