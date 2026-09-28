@@ -204,6 +204,7 @@
       # Shell tools
       "autoenv"     # Per-directory shell environments
       "fzf"         # Fuzzy finder
+      "shellcheck"  # Static analysis and lint tool, for (ba)sh scripts
 
       # System utilities
       "knock"       # A port-knocking implementation
