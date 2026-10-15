@@ -315,6 +315,9 @@
       
       # Add any custom functions or configurations here
 
+      # opencode model loops (oc-copilot / oc-llmhub / oc-mix / oc-loops); source of truth: agentic-workbench global/profiles/oc.zsh
+      [[ -r ~/.config/opencode/profiles/oc.zsh ]] && source ~/.config/opencode/profiles/oc.zsh
+
       # ----- Nix / nix-darwin rebuild helpers -------------------------------
       # Single source of truth for the flake location and the (local,
       # gitignored) user config, so the helpers can never drift apart.
