@@ -141,24 +141,22 @@ in
     # Useful for storing large binary files efficiently
     lfs.enable = true;
     
-    # Default git identity from user-config.nix
-    userName = userConfig.user.name;
-    userEmail = userConfig.user.email;
+    settings = {
+      # Default git identity from user-config.nix
+      user.name = userConfig.user.name;
+      user.email = userConfig.user.email;
 
-    
-    # Git aliases for common commands
-    aliases = {
-      st = "status";
-      co = "checkout";
-      br = "branch";
-      ci = "commit";
-      unstage = "reset HEAD --";
-      last = "log -1 HEAD";
-      visual = "log --graph --oneline --all";
-    };
-    
-    # Extra git configuration
-    extraConfig = {
+      # Git aliases for common commands
+      alias = {
+        st = "status";
+        co = "checkout";
+        br = "branch";
+        ci = "commit";
+        unstage = "reset HEAD --";
+        last = "log -1 HEAD";
+        visual = "log --graph --oneline --all";
+      };
+
       # Default branch name for new repositories
       init.defaultBranch = "main";
       
@@ -454,7 +452,7 @@ in
   # ==========================================================================
   # CONDITIONAL GIT CONFIGURATION FILES
   # ==========================================================================
-  # These files are used by the conditional includes in programs.git.extraConfig
+  # These files are used by the conditional includes in programs.git.includes
   # They allow you to have different git identities for work and personal projects
   
   home.file = {
