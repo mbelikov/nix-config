@@ -61,6 +61,27 @@ vim ~/.config/nix/user-config.nix
 **Optional:**
 - `directories.development` - Change from "Development" to "dev", "Code", etc.
 - `git.privateSigningKey` / `git.workSigningKey` - GPG key IDs for commit signing
+- `shell.zsh` - personal zsh add-ons (see below)
+
+#### Shell add-ons (zsh)
+
+Optional `shell.zsh` section in `user-config.nix` (all keys optional):
+
+```nix
+shell.zsh = {
+  # Files sourced at the end of .zshrc, only if readable ("~/" is allowed)
+  sourceFiles = [ "~/.config/opencode/profiles/oc.zsh" ];
+  # Raw zsh code appended at the end of .zshrc
+  extraInit = ''
+    export FOO=bar
+  '';
+  # Merged into programs.zsh.shellAliases (override the shared aliases)
+  extraAliases = { ll = "eza -lah"; };
+};
+```
+
+Without a rebuild, you can also drop `*.zsh` files into
+`~/.config/zsh/local.d/`; they are sourced last, after everything above.
 
 ### 5. Apply Configuration
 

@@ -13,8 +13,32 @@
 #
 # ============================================================================
 
-{ config, pkgs, userConfig, ... }:
+{ config, lib, pkgs, userConfig, ... }:
 
+let
+  # Optional personal zsh add-ons from user-config.nix (`shell.zsh`).
+  # All keys are optional so existing user configs keep working.
+  zshCfg = userConfig.shell.zsh or { };
+  zshSourceFiles = zshCfg.sourceFiles or [ ];
+  zshExtraInit = zshCfg.extraInit or "";
+  zshExtraAliases = zshCfg.extraAliases or { };
+
+  # "~/foo" -> "$HOME/foo" so it expands inside double quotes.
+  expandHome = p:
+    if lib.hasPrefix "~/" p then "$HOME/${lib.removePrefix "~/" p}" else p;
+
+  zshSourceLines = lib.concatMapStringsSep "\n"
+    (p: let f = expandHome p; in ''[[ -r "${f}" ]] && source "${f}"'')
+    zshSourceFiles;
+
+  zshAddons = ''
+    # --- user-local zsh add-ons ---
+    ${zshSourceLines}
+    ${zshExtraInit}
+    # Runtime drop-ins (no rebuild needed): ~/.config/zsh/local.d/*.zsh
+    for _f in "''${XDG_CONFIG_HOME:-$HOME/.config}/zsh/local.d/"*.zsh(N); do source "$_f"; done; unset _f
+  '';
+in
 {
   imports = [
     ./jdks.nix
@@ -294,10 +318,11 @@
       # Nix shortcuts
       # NOTE: `nix-rebuild` and `nix-update` are defined as functions in
       # initContent below (they need argument handling and a shared flake path).
-    };
+    } // zshExtraAliases;
     
-    # Additional zsh configuration
-    initContent = ''
+    # Additional zsh configuration. The user-local add-ons come last
+    # (mkAfter), i.e. after the JDK helpers from jdks.nix too.
+    initContent = lib.mkMerge [ ''
       # Custom prompt or additional configuration
       
       # Enable case-insensitive completion
@@ -314,9 +339,6 @@
       # export PATH="$PATH:$HOME/Library/Application Support/Coursier/bin"
       
       # Add any custom functions or configurations here
-
-      # opencode model loops (oc-copilot / oc-llmhub / oc-mix / oc-loops); source of truth: agentic-workbench global/profiles/oc.zsh
-      [[ -r ~/.config/opencode/profiles/oc.zsh ]] && source ~/.config/opencode/profiles/oc.zsh
 
       # ----- Nix / nix-darwin rebuild helpers -------------------------------
       # Single source of truth for the flake location and the (local,
@@ -348,7 +370,7 @@
         ( cd "$NIX_CONFIG_DIR" && nix flake update )
         nix-rebuild "$@"
       }
-    '';
+    '' (lib.mkAfter zshAddons) ];
     
     # History configuration
     history = {
