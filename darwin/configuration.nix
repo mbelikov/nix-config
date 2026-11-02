@@ -191,7 +191,9 @@
       # Development tools
       "maven"       # Java build tool
       "ant"         # Java build tool
-      "docker-compose"
+      "docker-compose" # Compose v2 plugin for the docker CLI
+      "docker"        # Docker CLI only (engine is colima, see home/default.nix)
+      "docker-buildx" # BuildKit builder plugin for the docker CLI
       "kotlin"
       "python"
       "node"        # Node.js runtime + npm (for global CLIs like cline)
@@ -230,7 +232,6 @@
 
     casks = [
       # Development
-      "docker"              # Docker Desktop
       "visual-studio-code"  # VSCode
       "iterm2"              # Terminal emulator
       "intellij-idea"
