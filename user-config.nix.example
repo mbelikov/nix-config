@@ -105,4 +105,27 @@
 
   extraEnv = {
   };
+
+  # ==========================================================================
+  # OPTIONAL: PERSONAL ZSH ADD-ONS
+  # ==========================================================================
+  # All keys are optional; omit the whole `shell` section if unused.
+  # Add-ons are appended at the very end of .zshrc (after everything else).
+  #
+  # Runtime alternative (no rebuild needed): drop any *.zsh files into
+  # ~/.config/zsh/local.d/ - they are sourced last, after the files below.
+
+  shell.zsh = {
+    # Files sourced at the end of .zshrc, only if readable. "~/" is allowed.
+    sourceFiles = [
+      # "~/.config/opencode/profiles/oc.zsh"
+    ];
+
+    # Raw zsh code appended at the end of .zshrc
+    extraInit = ''
+    '';
+
+    # Extra aliases, merged into programs.zsh.shellAliases (override shared ones)
+    extraAliases = { };
+  };
 }
